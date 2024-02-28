@@ -4,7 +4,7 @@ import "./index.css"
 import Read from "./readlist/read";
 
 const Main =()=>{
-    const [newTask,setNewTask] = useState([])
+    const [newTask,setNewTask] = useState([]) //todo List
   
 
     return(
@@ -12,7 +12,7 @@ const Main =()=>{
         <div className="main-div">
             <div className="main-container">
                 <AddForm  newTask={newTask}  setNewTask={setNewTask}/>
-        <Read newTask={newTask}/>
+                 <Read newTask={newTask} setNewTask={setNewTask}/>
             </div>
         
         </div>

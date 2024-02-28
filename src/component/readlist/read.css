@@ -1,0 +1,44 @@
+.task-item{
+    background: #BCB5AB;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.task-card{
+    background: #9B4C47;
+    border: 1px solid #9B4C47;
+}
+
+.task-div{
+    margin-top: 5px;
+}
+
+.delete{
+     
+      padding: 0px 4px 0px 4px;
+      background: black;
+      color: white;
+      cursor: pointer;
+      margin-left:10px;
+  }
+
+ .task-li{
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  .completed{
+    text-decoration:line-through;
+    color: green;
+    font-weight: 500;
+    font-style: italic;
+  }
+
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color:black;
+    /* border-color: #1677ff; */
+   
+    color: black;
+}
+
