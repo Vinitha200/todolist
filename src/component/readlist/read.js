@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Checkbox } from 'antd'
 import "./read.css"
 import { EditFilled } from '@ant-design/icons'
-
+import EditData from "../editlist/editlist"
 
 const Read = ({ newTask, setNewTask }) => {
+    const [isedit, setIsEdit] = useState(false)
+    const [editrecord, seteditrecord] = useState("")
+    const [id,setID]=useState('')
 
     const handleDelete = (index) => {
         const updated = [...newTask]
@@ -20,6 +23,13 @@ const Read = ({ newTask, setNewTask }) => {
         setNewTask(update)
     }
 
+    const handleEdit = (item,id) => {
+        setIsEdit(true)
+        seteditrecord(item)
+        setID(id)
+    }
+
+    const editingData = newTask?.filter((item)=>item.id===id)
     return (
         <>
             <div className='task-div'>
@@ -36,12 +46,12 @@ const Read = ({ newTask, setNewTask }) => {
                                             onChange={(e) => handleCheck(e, index)}>
                                             <li key={index} className={item?.completed ? 'completed' : 'task-li'}>{item?.task}</li>
                                         </Checkbox>
-                                        <div style={{display:"flex"}}>
-                                       
-                                        <button className="delete" onClick={() => handleDelete(index)}>x</button>
-                                        
+                                        <div style={{ display: "flex" }}>
+                                        <button className="delete" onClick={() => handleEdit(item,item?.id)}><EditFilled/></button>
+                                            <button className="delete" onClick={() => handleDelete(index)}>x</button>
+                                           
                                         </div>
-                                       
+
                                     </div>
 
 
@@ -50,7 +60,13 @@ const Read = ({ newTask, setNewTask }) => {
 
                     </Card>}
 
-
+                {isedit && 
+                <EditData 
+                editrecord={editrecord} 
+                newTask={newTask} 
+                setNewTask={setNewTask} 
+                isedit={isedit} 
+                setIsEdit={setIsEdit} />}
             </div>
         </>
 

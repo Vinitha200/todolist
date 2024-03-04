@@ -4,17 +4,23 @@ import "./addForm.css"
 
 const AddForm = ({newTask,setNewTask}) => {
 
+    const [id,setID]=useState(0)
     const [form] = Form.useForm();
 
-   
+    const generateID = () => {
+        setID(prevId => prevId + 1); 
+        return id + 1; // 
+    };
+    
     const onFinish = (values) => {
         console.log('Success:', values);
         if (values?.task.trim() !== '') {
-        setNewTask(prev=>[...prev,{task:values?.task,completed:false}])
-        form.resetFields();
+            const newId = generateID(); // Generate a new ID
+            setNewTask(prev => [...prev, { task: values?.task, completed: false, id: newId }]);
+            form.resetFields();
         }
-       
     };
+    
 
     console.log(newTask)
     return (
@@ -56,7 +62,7 @@ const AddForm = ({newTask,setNewTask}) => {
                     <button
                     className="submit-button"  
                     htmlType="submit">
-                        Submit
+                        Add
                     </button>
                 </Form.Item>
             </Form>

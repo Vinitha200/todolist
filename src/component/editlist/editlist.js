@@ -1,76 +1,70 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Card ,Modal} from "antd"
-import "./addForm.css"
+import { Form, Input, Button, Card, Modal } from "antd"
+//import "./addForm.css"
 
-const AddForm = ({newTask,setNewTask}) => {
+const EditData = ({ newTask, setNewTask, editrecord, isedit, setIsEdit }) => {
 
-    const [form] = Form.useForm();
 
-   
-    const onFinish = (values) => {
-        console.log('Success:', values);
-        if (values?.task.trim() !== '') {
-        setNewTask(prev=>[...prev,{task:values?.task,completed:false}])
-        form.resetFields();
-        }
-       
+    const [edit, setEdit] = useState(editrecord)
+
+    console.log("editingData", edit)
+    
+    const handleCancel = () => {
+        setIsEdit(false);
     };
 
-    console.log(newTask)
+    const hangelChange = (e) => {
+        // console.log('Success2:', e?.targe.value);
+        let newdata = e?.target?.value
+        setEdit(newdata)
+    }
+
+    const handleUpdate = () => {
+        const update = newTask.map((item) => {
+            if (item.id === editrecord.id) {
+                return { ...item, task: edit };
+            }
+            return item;
+        });
+
+        console.log(update, 'update')
+        setNewTask(update)
+        setIsEdit(false);
+
+    }
+
+    console.log("newTask", newTask, edit)
     return (
         <>
-          <div>
-            <Modal>
-               <Card
-            size="small"
-            className="form-card"
-            
-            >
-            <Form
-                form={form}
-                name="basic"
-                onFinish={onFinish}
-                // onFinishFailed={onFinishFailed}
-                autoComplete="off"
-               
-                className="add-form"
-            >
-                <Form.Item
-                    // label="Task"
-                    name="task"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Task!',
-                        },
-                    ]}
-                >
-                    <Input 
-                    className="form-input"
-                    placeholder="Add a new task..."
-                   
-                    />
-                </Form.Item>
-                <Form.Item
-                 
-                >
-                    <button
-                    className="submit-button"  
-                    htmlType="submit">
-                        Submit
-                    </button>
-                </Form.Item>
-            </Form>
-            </Card>
-            </Modal>
-           
-           
-          </div>
-            
+            <div>
+                <Modal 
+                title="Edit Task" 
+                open={isedit} 
+                onCancel={handleCancel} 
+                footer={null}>
+                    <Card
+                        size="small"
+                        className="form-card"
 
-            
+                    >
+                        <form>
+                            <input
+                                name="task"
+                                value={edit?.task}
+                                onChange={(e) => hangelChange(e)}
+                            />
+                            <button htmlType='submit' onClick={handleUpdate}>update</button>
+                        </form>
+                    </Card>
+                </Modal>
+
+
+            </div>
+
+
+
         </>
     )
 }
 
-export default AddForm
+export default EditData
